@@ -39,7 +39,7 @@ export const Login = async (req, res) => {
       .status(200)
       .cookie("token", token, { httpOnly: true })
       .json({
-        message: `Welcome Back ${user.fullname}`,
+        message: `Welcome Back ${user.fullName}`,
         success: true,
       });
   } catch (error) {
@@ -59,8 +59,8 @@ export const Logout = async (req, res) => {
 
 export const Register = async (req, res) => {
   try {
-    const { fullname, email, password } = req.body;
-    if (!fullname || !email || !password) {
+    const { fullName, email, password } = req.body;
+    if (!fullName || !email || !password) {
       return res.status(401).json({
         message: "Invalid Data",
         success: false,
@@ -79,13 +79,15 @@ export const Register = async (req, res) => {
     const hashedPassword = await bcryptjs.hash(password, 16);
 
     await User.create({
-      fullname,
+      fullName,
       email,
       password: hashedPassword,
     });
 
     return res.status(201).json({
       message: "Account Created Successfully",
+      user,
+      success: true,
     });
   } catch (error) {
     console.log(error);
