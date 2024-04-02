@@ -1,10 +1,32 @@
+import axios from "axios";
 import React from "react";
 import { IoIosArrowDropdown } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { API_END_POINT } from "../utils/constant";
+import { setUser } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Header = () => {
   const user = useSelector((store) => store.app.user);
   console.log(user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`${API_END_POINT}/logout`);
+      console.log(res);
+      if(res.data.success){
+        toast.success(res.data.message);
+      }
+      dispatch(setUser(null));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="absolute flex w-[100%] items-center justify-between px-8 py-2 bg-gradient-to-b from-black z-10">
       <img
@@ -21,7 +43,7 @@ const Header = () => {
             <button className="bg-red-700 text-white px-3 py-2 mx-1 rounded-lg">
               Search Movie
             </button>
-            <button className="bg-red-700 text-white px-3 py-2 mx-1 rounded-lg">
+            <button onClick={logoutHandler} className="bg-red-700 text-white px-3 py-2 mx-1 rounded-lg">
               Logout
             </button>
           </div>

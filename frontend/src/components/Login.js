@@ -4,8 +4,8 @@ import axios from "axios";
 import { API_END_POINT } from "../utils/constant";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setLoading } from "../redux/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(false);
@@ -15,12 +15,15 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const isLoading = useSelector(store => store.app.isLoading);
+
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
   };
 
   const getInputData = async (e) => {
     e.preventDefault();
+    dispatch(setLoading(true));
     if (isSignInForm) {
       //login
       const user = { fullName, email, password };
@@ -40,9 +43,12 @@ const Login = () => {
       } catch (error) {
         toast.error(error.response.data.message);
         console.log(error);
+      } finally {
+        dispatch(setLoading(false));
       }
     } else {
       // Register
+      dispatch(setLoading(true));
       const user = { fullName, email, password };
       // console.log(user);
       try {
@@ -60,6 +66,8 @@ const Login = () => {
       } catch (error) {
         toast.error(error.response.data.message);
         console.log(error);
+      } finally {
+        dispatch(setLoading(false));
       }
     }
     setFullName("");
@@ -106,8 +114,8 @@ const Login = () => {
           placeholder="Password"
           className="p-4 my-4 w-full bg-gray-700"
         />
-        <button className="p-4 my-6 bg-red-700 w-full rounded-lg">
-          {isSignInForm ? "Sign In" : "Sign Up"}
+        <button type="submit" className="p-4 my-6 bg-red-700 w-full rounded-lg">
+          {`${isLoading ? "Signing ...":(isSignInForm?"Sign In":"Signup")}`}
         </button>
         <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
           {isSignInForm
