@@ -3,14 +3,17 @@ import Header from "./Header";
 import axios from "axios";
 import { API_END_POINT } from "../utils/constant";
 import toast from "react-hot-toast";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice";
 
 const Login = () => {
-  const [isSignInForm, setIsSignInForm] = useState(true);
+  const [isSignInForm, setIsSignInForm] = useState(false);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
@@ -19,37 +22,38 @@ const Login = () => {
   const getInputData = async (e) => {
     e.preventDefault();
     if (isSignInForm) {
-      // Login
-      const user = { email, password };
+      //login
+      const user = { fullName, email, password };
       try {
         const res = await axios.post(`${API_END_POINT}/login`, user, {
-          headers:{
-            'Content-Type':'application/json'
+          headers: {
+            "Content-Type": "application/json",
           },
-          withCredentials:true
+          withCredentials: true,
         });
-        console.log(res);
-        if(res.data.success){
+        if (res.data.success) {
           toast.success(res.data.message);
         }
+        console.log(res);
+        dispatch(setUser(res.data.user));;
         navigate("/browse");
       } catch (error) {
         toast.error(error.response.data.message);
         console.log(error);
-      }     
+      }
     } else {
       // Register
       const user = { fullName, email, password };
       // console.log(user);
       try {
         const res = await axios.post(`${API_END_POINT}/register`, user, {
-          headers:{
-            'Content-Type':'application/json'
+          headers: {
+            "Content-Type": "application/json",
           },
-          withCredentials:true
+          withCredentials: true,
         });
         console.log(res);
-        if(res.data.success){
+        if (res.data.success) {
           toast.success(res.data.message);
         }
         setIsSignInForm(true);
