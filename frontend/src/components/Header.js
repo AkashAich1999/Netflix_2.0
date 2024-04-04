@@ -6,9 +6,11 @@ import { API_END_POINT } from "../utils/constant";
 import { setUser } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { setToggle } from "../redux/movieSlice";
 
 const Header = () => {
   const user = useSelector((store) => store.app.user);
+  const toggle = useSelector((store) => store.movie.toggle);
   console.log(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,6 +29,10 @@ const Header = () => {
     }
   }
 
+  const toggleHandler = () => {
+    dispatch(setToggle());
+  }
+
   return (
     <div className="absolute flex w-[100%] items-center justify-between px-8 py-2 bg-gradient-to-b from-black z-10">
       <img
@@ -40,8 +46,8 @@ const Header = () => {
           <IoIosArrowDropdown size="24px" color="white"/>
           <h1 className="text-lg font-medium text-white">{user.fullName}</h1>
           <div className="ml-4">
-            <button className="bg-red-700 text-white px-3 py-2 mx-1 rounded-lg">
-              Search Movie
+            <button onClick={toggleHandler} className="bg-red-700 text-white px-3 py-2 mx-1 rounded-lg">
+              {toggle ? "Home Page" : "Search Movie"}
             </button>
             <button onClick={logoutHandler} className="bg-red-700 text-white px-3 py-2 mx-1 rounded-lg">
               Logout

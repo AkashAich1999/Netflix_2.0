@@ -115,7 +115,7 @@ const Login = () => {
           className="p-4 my-4 w-full bg-gray-700"
         />
         <button type="submit" className="p-4 my-6 bg-red-700 w-full rounded-lg">
-          {`${isLoading ? "Signing ...":(isSignInForm?"Sign In":"Signup")}`}
+          {`${isLoading ? "Signing.....":(isSignInForm?"Sign In":"Signup")}`}
         </button>
         <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
           {isSignInForm
