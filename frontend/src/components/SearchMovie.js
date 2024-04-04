@@ -52,7 +52,7 @@ const SearchMovie = () => {
           </div>
         </form>
       </div>
-      <MovieList title={movieName} movies={searchedMovie} />
+      <MovieList title={movieName} searchMovie={true} movies={searchedMovie} />
     </>
   );
 }
