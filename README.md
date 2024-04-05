@@ -1,2 +1,28 @@
 # Netflix_2.0
-Netflix Clone built using MERN Stack
+Developed Netflix Clone built using MERN Stack (MongoDB, Express, ReactJS, NodeJS), Redux, TMDB API, Tailwind CSS & MUI.
+
+Features:
+- Login/Sign Up
+
+- Browse (After Authentication)
+    - Header.
+    - Main Movie Container Portion:
+        - Trailer in Background.
+        - Title & Description.
+    - Movie Container Portion:
+        - MovieLists:
+            - (Now Playing) * N.
+            - (Now Playing Movies) * N.
+            - (Now Playing Movies) * N.
+            - (Now Playing Movies) * N.
+        - Play Movie:
+            - MovieDialog Popup
+                - Video
+                - Cancel    
+    - Search Page:
+        - Search Bar.
+        - Movie Suggestions.
+        - Play Movie:
+            - MovieDialog Popup
+                - Video
+                - Cancel
