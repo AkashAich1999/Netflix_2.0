@@ -1,6 +1,7 @@
 # Netflix_2.0
 Developed Netflix Clone built using MERN Stack (MongoDB, Express, ReactJS, NodeJS), Redux, TMDB API, Tailwind CSS & MUI.
 
+##
 Features:
 - Login/Sign Up
 
