@@ -12,9 +12,9 @@ Features:
     - Movie Container Portion:
         - MovieLists:
             - (Now Playing) * N.
-            - (Now Playing Movies) * N.
-            - (Now Playing Movies) * N.
-            - (Now Playing Movies) * N.
+            - (Popular Movies) * N.
+            - (Top Rated Movies) * N.
+            - (Upcoming Movies) * N.
         - Play Movie:
             - MovieDialog Popup
                 - Video
